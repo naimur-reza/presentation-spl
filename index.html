@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scope, Storage Class & Lifetime of Variables in C</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #333;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .slide {
+            width: 25%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .slide h1 {
+            font-size: 4.5rem;
+            margin-bottom: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .slide h2 {
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            font-weight: 600;
+        }
+
+        .slide p {
+            font-size: 2.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 1000px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide ul {
+            list-style: none;
+            text-align: left;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .slide li {
+            font-size: 2.5rem;
+            color: #fff;
+            margin: 1.8rem 0;
+            padding-left: 3rem;
+            position: relative;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.4;
+        }
+
+        .slide li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            font-size: 2.5rem;
+            color: #00d4ff;
+        }
+
+        .slide .sub-point {
+            font-size: 1.8rem;
+            margin-left: 2rem;
+            margin-top: 0.8rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 400;
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 212, 255, 0.2);
+            border: 3px solid rgba(0, 212, 255, 0.6);
+            color: #fff;
+            font-size: 2.5rem;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-button:hover {
+            background: rgba(0, 212, 255, 0.4);
+            border-color: rgba(0, 212, 255, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .nav-button:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .nav-button.prev {
+            left: 30px;
+        }
+
+        .nav-button.next {
+            right: 30px;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .indicator-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator-dot.active {
+            background: #00d4ff;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+        }
+
+        .presenter-name {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.4rem;
+            z-index: 10;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .slide h1 {
+                font-size: 2.5rem;
+            }
+
+            .slide h2 {
+                font-size: 2rem;
+            }
+
+            .slide p {
+                font-size: 1.5rem;
+            }
+
+            .slide li {
+                font-size: 1.6rem;
+            }
+
+            .slide .sub-point {
+                font-size: 1.2rem;
+            }
+
+            .nav-button {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+
+            .nav-button.prev {
+                left: 15px;
+            }
+
+            .nav-button.next {
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container" id="sliderContainer">
+        <div class="slider-wrapper" id="sliderWrapper">
+            <!-- Slide 1: Introduction -->
+            <div class="slide">
+                <h1>Scope, Storage Class & Lifetime of Variables in C</h1>
+                <p>This presentation covers how variables behave in C — where they are visible, how they are stored, and how long they exist in memory.</p>
+            </div>
+
+            <!-- Slide 2: Scope -->
+            <div class="slide">
+                <h2>Scope</h2>
+                <ul>
+                    <li>Local Scope
+                        <div class="sub-point">Variables declared inside a function, accessible only within that function</div>
+                    </li>
+                    <li>Global Scope
+                        <div class="sub-point">Variables declared outside all functions, accessible throughout the program</div>
+                    </li>
+                    <li>Block Scope
+                        <div class="sub-point">Variables declared within { } blocks, accessible only within that block</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Slide 3: Storage Classes -->
+            <div class="slide">
+                <h2>Storage Classes</h2>
+                <ul>
+                    <li>auto
+                        <div class="sub-point">Default for local variables, stored in stack, destroyed when function exits</div>
+                    </li>
+                    <li>static
+                        <div class="sub-point">Retains value between function calls, exists for entire program duration</div>
+                    </li>
+                    <li>extern
+                        <div class="sub-point">Declares variable defined elsewhere, used for global variable sharing</div>
+                    </li>
+                    <li>register
+                        <div class="sub-point">Suggests storing in CPU register for faster access (hint to compiler)</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Slide 4: Lifetime -->
+            <div class="slide">
+                <h2>Lifetime</h2>
+                <ul>
+                    <li>Local Variable Lifetime
+                        <div class="sub-point">Created when function is called, destroyed when function returns</div>
+                    </li>
+                    <li>Global Variable Lifetime
+                        <div class="sub-point">Created when program starts, destroyed when program terminates</div>
+                    </li>
+                    <li>Static Lifetime
+                        <div class="sub-point">Variables with static storage class persist for entire program execution</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button class="nav-button prev" id="prevBtn" aria-label="Previous slide">‹</button>
+        <button class="nav-button next" id="nextBtn" aria-label="Next slide">›</button>
+
+        <!-- Slide Indicators -->
+        <div class="slide-indicator" id="slideIndicator"></div>
+
+        <!-- Presenter Name -->
+        <div class="presenter-name">Presented by Naimur Reza</div>
+    </div>
+
+    <script>
+        const sliderWrapper = document.getElementById('sliderWrapper');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideIndicator = document.getElementById('slideIndicator');
+        const sliderContainer = document.getElementById('sliderContainer');
+
+        let currentSlide = 0;
+        const totalSlides = 4;
+
+        // Create indicator dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'indicator-dot';
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            slideIndicator.appendChild(dot);
+        }
+
+        const dots = slideIndicator.querySelectorAll('.indicator-dot');
+
+        function updateSlider() {
+            const translateX = -currentSlide * 25;
+            sliderWrapper.style.transform = `translateX(${translateX}%)`;
+
+            // Update navigation buttons
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+
+            // Update indicator dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function goToSlide(slideIndex) {
+            if (slideIndex >= 0 && slideIndex < totalSlides) {
+                currentSlide = slideIndex;
+                updateSlider();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlider();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        }
+
+        // Button navigation
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+
+        // Touch/Drag support
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        let startTranslate = 0;
+
+        sliderContainer.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            startTranslate = -currentSlide * 25;
+        });
+
+        sliderContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            currentX = e.touches[0].clientX;
+            const diff = startX - currentX;
+            const translate = startTranslate + (diff / window.innerWidth) * 100;
+            sliderWrapper.style.transform = `translateX(${translate}%)`;
+        });
+
+        sliderContainer.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+
+            const diff = startX - currentX;
+            const threshold = window.innerWidth * 0.1;
+
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0 && currentSlide < totalSlides - 1) {
+                    nextSlide();
+                } else if (diff < 0 && currentSlide > 0) {
+                    prevSlide();
+                } else {
+                    updateSlider();
+                }
+            } else {
+                updateSlider();
+            }
+        });
+
+        // Mouse drag support
+        let mouseStartX = 0;
+        let mouseCurrentX = 0;
+        let isMouseDragging = false;
+        let mouseStartTranslate = 0;
+
+        sliderContainer.addEventListener('mousedown', (e) => {
+            isMouseDragging = true;
+            mouseStartX = e.clientX;
+            mouseStartTranslate = -currentSlide * 25;
+            sliderContainer.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isMouseDragging) return;
+            mouseCurrentX = e.clientX;
+            const diff = mouseStartX - mouseCurrentX;
+            const translate = mouseStartTranslate + (diff / window.innerWidth) * 100;
+            sliderWrapper.style.transform = `translateX(${translate}%)`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (!isMouseDragging) return;
+            isMouseDragging = false;
+            sliderContainer.style.cursor = 'default';
+
+            const diff = mouseStartX - mouseCurrentX;
+            const threshold = window.innerWidth * 0.1;
+
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0 && currentSlide < totalSlides - 1) {
+                    nextSlide();
+                } else if (diff < 0 && currentSlide > 0) {
+                    prevSlide();
+                } else {
+                    updateSlider();
+                }
+            } else {
+                updateSlider();
+            }
+        });
+
+        // Initialize
+        updateSlider();
+    </script>
+</body>
+</html>
