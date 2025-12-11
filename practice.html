@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation Practice Guide - Naimur Reza</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #fff;
+            line-height: 1.7;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 20px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #00d4ff;
+            text-shadow: 0 2px 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h2::before {
+            content: "🌟";
+            font-size: 1.8rem;
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .section p {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+        }
+
+        .section ul, .section ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .section li {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 12px;
+            padding-left: 10px;
+        }
+
+        .script-box {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid #00d4ff;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            font-style: italic;
+            position: relative;
+        }
+
+        .script-box::before {
+            content: "💬";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+        }
+
+        .script-box p {
+            padding-left: 35px;
+            margin-bottom: 15px;
+        }
+
+        .script-box strong {
+            color: #00d4ff;
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border-left: 3px solid #00d4ff;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .tip-item::before {
+            content: "✔";
+            color: #00d4ff;
+            font-size: 1.3rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .highlight-box p {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+
+        .slide-script {
+            margin: 20px 0;
+        }
+
+        .slide-title {
+            font-size: 1.4rem;
+            color: #00d4ff;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: rgba(0, 212, 255, 0.15);
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .closing-note {
+            background: rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .closing-note h3 {
+            color: #00d4ff;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+        }
+
+        .closing-note p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .section h2 {
+                font-size: 1.6rem;
+            }
+
+            .script-box {
+                font-size: 1.1rem;
+                padding: 20px;
+            }
+        }
+
+        .practice-timer {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(0, 212, 255, 0.5);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            color: #fff;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .practice-timer:hover {
+            background: rgba(0, 212, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .practice-timer.active {
+            background: rgba(0, 212, 255, 0.4);
+            border-color: #00d4ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Presentation Practice Guide</h1>
+            <p>Your complete script and tips for confident presentation</p>
+        </div>
+
+        <div class="section">
+            <h2>How to Start Confidently (Simple Trick)</h2>
+            <p>When you begin, don't jump straight into the C topic. Start with you — a tiny intro gives your brain time to settle.</p>
+            
+            <div class="script-box">
+                <p><strong>Start like this:</strong></p>
+                <p>"Assalamu Alaikum. I'm Naimur Reza. Today I'll be presenting a very important basic concept in C programming — how variables behave inside a program.</p>
+                <p>This includes scope, storage classes, and lifetime. I'll explain these in a very simple way using this short 4-slide presentation."</p>
+            </div>
+
+            <div class="highlight-box">
+                <p>You've already won the room. 🎉</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>How to Present — Flow You Can Follow</h2>
+            <p>Your presentation should feel like you're telling a story, not reading a book.</p>
+            <ol>
+                <li>Start with what the presentation is about</li>
+                <li>Explain the idea in simple terms</li>
+                <li>Move slide by slide</li>
+                <li>End with a short closing line</li>
+            </ol>
+            <p style="margin-top: 20px;"><strong>You don't need deep technical knowledge</strong> — each part is easy if you phrase it right.</p>
+        </div>
+
+        <div class="section">
+            <h2>Slide-by-Slide Script</h2>
+            <p style="margin-bottom: 25px;">Speak naturally — don't read word-for-word. Use these as your guide:</p>
+
+            <div class="slide-script">
+                <div class="slide-title">SLIDE 1 — Introduction</div>
+                <div class="script-box">
+                    <p>"So this presentation is about how variables behave in C.</p>
+                    <p>In simple terms, three things matter:</p>
+                    <ul style="list-style: none; padding-left: 35px;">
+                        <li>• Where the variable can be used (that's <strong>scope</strong>)</li>
+                        <li>• How the variable is stored (that's <strong>storage class</strong>)</li>
+                        <li>• How long the variable stays alive (that's <strong>lifetime</strong>)</li>
+                    </ul>
+                    <p>I'll keep everything short and visual."</p>
+                </div>
+                <p style="color: rgba(255,255,255,0.7); font-size: 1rem; margin-top: 10px;">💡 Keep it short — don't over-explain.</p>
+            </div>
+
+            <div class="slide-script">
+                <div class="slide-title">SLIDE 2 — Scope</div>
+                <div class="script-box">
+                    <p>"Scope means the area where a variable is accessible.</p>
+                    <p>Local variables only work inside a function, global variables work everywhere in the file, and block variables work inside a specific block like an if statement.</p>
+                    <p>It basically decides who can 'see' the variable."</p>
+                </div>
+                <p style="color: rgba(255,255,255,0.7); font-size: 1rem; margin-top: 10px;">💡 Say it like you're explaining to a friend — keep it chill and simple.</p>
+            </div>
+
+            <div class="slide-script">
+                <div class="slide-title">SLIDE 3 — Storage Classes</div>
+                <div class="script-box">
+                    <p>"Storage class tells the compiler how to treat a variable.</p>
+                    <ul style="list-style: none; padding-left: 35px;">
+                        <li>• <strong>auto</strong> is the normal/default variable.</li>
+                        <li>• <strong>static</strong> remembers its old value even after the function ends.</li>
+                        <li>• <strong>extern</strong> lets us use variables from another file.</li>
+                        <li>• <strong>register</strong> suggests storing the variable in a faster place."</li>
+                    </ul>
+                </div>
+                <p style="color: rgba(255,255,255,0.7); font-size: 1rem; margin-top: 10px;">💡 Your sir will love this explanation — it's correct and simple.</p>
+            </div>
+
+            <div class="slide-script">
+                <div class="slide-title">SLIDE 4 — Lifetime</div>
+                <div class="script-box">
+                    <p>"Lifetime means how long a variable exists in memory.</p>
+                    <ul style="list-style: none; padding-left: 35px;">
+                        <li>• Local variables live until the function ends.</li>
+                        <li>• Global variables live until the program finishes.</li>
+                        <li>• Static variables live for the entire program's lifetime.</li>
+                    </ul>
+                    <p>And that's the summary.</p>
+                    <p><strong>Thank you — presented by Naimur Reza.</strong>"</p>
+                </div>
+                <p style="color: rgba(255,255,255,0.7); font-size: 1rem; margin-top: 10px;">💡 Clean ending — you're done! 🎊</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>How to Present Confidently (Even if You're Nervous)</h2>
+            <p style="margin-bottom: 20px;">Here's how to fake confidence like a pro:</p>
+
+            <div class="tip-item">
+                <span><strong>Speak slowly</strong> — Fast talking = nervous. Slow talking = confident.</span>
+            </div>
+
+            <div class="tip-item">
+                <span><strong>Hold the mouse or keyboard</strong> — It gives your hands something to do.</span>
+            </div>
+
+            <div class="tip-item">
+                <span><strong>Look at the slide, not the teacher</strong> — Glancing at your slide feels natural.</span>
+            </div>
+
+            <div class="tip-item">
+                <span><strong>Keep your voice steady</strong> — Even if you're scared inside, a slow pace hides everything.</span>
+            </div>
+
+            <div class="tip-item">
+                <span><strong>Don't try to sound "expert"</strong> — Just sound clear. Confidence doesn't mean knowing everything.</span>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 25px;">
+                <p>Confidence just means you're not panicking.<br>And you won't. 😊</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Final Reassurance</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 15px;">You don't need to be a C expert.</p>
+            <p>You're not teaching a course.</p>
+            <p>You're presenting a basic concept that students at your level present all the time.</p>
+            <p style="margin-top: 20px;"><strong>Your presentation design already gives you extra points.</strong></p>
+            <div class="highlight-box" style="margin-top: 25px;">
+                <p style="font-size: 1.4rem;">You're chill. You got this. 🚀<br>You'll look clean, smart, and prepared.</p>
+            </div>
+        </div>
+
+        <div class="closing-note">
+            <h3>💪 Practice Tips</h3>
+            <p>• Read through this script 2-3 times</p>
+            <p>• Practice speaking out loud (even if it feels weird)</p>
+            <p>• Time yourself — aim for 3-5 minutes total</p>
+            <p>• Remember: Simple and clear beats complex and confusing</p>
+            <p style="margin-top: 20px; font-size: 1.3rem; color: #00d4ff;"><strong>You've got this, Naimur! 💯</strong></p>
+        </div>
+    </div>
+
+    <div class="practice-timer" id="timer" onclick="toggleTimer()">
+        ⏱️ Timer: <span id="time">00:00</span>
+    </div>
+
+    <script>
+        let startTime = null;
+        let elapsed = 0;
+        let interval = null;
+        let isRunning = false;
+
+        function toggleTimer() {
+            if (!isRunning) {
+                startTime = Date.now() - elapsed;
+                interval = setInterval(updateTimer, 1000);
+                isRunning = true;
+                document.getElementById('timer').classList.add('active');
+                document.getElementById('timer').innerHTML = '⏱️ Timer: <span id="time">00:00</span> (Click to pause)';
+            } else {
+                clearInterval(interval);
+                isRunning = false;
+                document.getElementById('timer').classList.remove('active');
+                elapsed = Date.now() - startTime;
+                document.getElementById('timer').innerHTML = '⏱️ Timer: <span id="time">' + formatTime(elapsed) + '</span> (Click to resume)';
+            }
+        }
+
+        function updateTimer() {
+            elapsed = Date.now() - startTime;
+            document.getElementById('time').textContent = formatTime(elapsed);
+        }
+
+        function formatTime(ms) {
+            const totalSeconds = Math.floor(ms / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+        }
+
+        // Double-click to reset timer
+        document.getElementById('timer').addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            clearInterval(interval);
+            startTime = null;
+            elapsed = 0;
+            isRunning = false;
+            document.getElementById('timer').classList.remove('active');
+            document.getElementById('timer').innerHTML = '⏱️ Timer: <span id="time">00:00</span>';
+        });
+    </script>
+</body>
+</html>
